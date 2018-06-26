@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleImageGallery.Data;
+using SimpleImageGallery.Services;
 
 namespace SimpleImageGallery
 {
@@ -25,6 +26,8 @@ namespace SimpleImageGallery
         {
             services.AddDbContext<SimpleImageGalleryDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IImage, ImageService>();
             services.AddMvc();
         }
 
@@ -47,7 +50,7 @@ namespace SimpleImageGallery
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Gallery}/{action=Index}/{id?}");
             });
         }
     }
