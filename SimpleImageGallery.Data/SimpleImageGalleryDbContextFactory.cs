@@ -12,8 +12,10 @@ namespace SimpleImageGallery.Data
     {
         public SimpleImageGalleryDbContext CreateDbContext(string[] args)
         {
+            string localConnectionString = "Server=(localdb)\\mssqllocaldb;Database=SimpleImageGallery;Trusted_Connection=True;MultipleActiveResultSets=true";
+            string connectionString = "Server=tcp:simpleimagegallery.database.windows.net,1433;Initial Catalog=SimpleImageGallery;Persist Security Info=False;User ID=divyeshjagetiya;Password=Xebia@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             var builder = new DbContextOptionsBuilder<SimpleImageGalleryDbContext>();
-            builder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=SimpleImageGallery;Trusted_Connection=True;MultipleActiveResultSets=true",
+            builder.UseSqlServer(connectionString,
                 optionsBuilder => optionsBuilder.MigrationsAssembly(typeof(SimpleImageGalleryDbContext).GetTypeInfo().Assembly.GetName().Name));
             return new SimpleImageGalleryDbContext(builder.Options);
         }
